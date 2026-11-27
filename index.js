@@ -124,15 +124,27 @@
     catElement.setAttribute('aria-label', '點擊貓咪聽牠說話');
     catElement.innerHTML = '<model-viewer src="cat.glb" alt="跨海大橋上的貓咪" camera-orbit="0deg 75deg 1.2m" camera-target="0m 0.8m 0m"></model-viewer><span class="cat-speech-status" aria-live="polite"></span>';
     var catSpeechStatus = catElement.querySelector('.cat-speech-status');
+    var catViewer = catElement.querySelector('model-viewer');
+    catViewer.addEventListener('animationend', function(event) {
+      if (event.animationName === 'cat-meow') {
+        catElement.classList.remove('speaking');
+      }
+    });
+    var interactWithCat = function() {
+      catElement.classList.remove('speaking');
+      void catElement.offsetWidth;
+      catElement.classList.add('speaking');
+      speakCat(catSpeechStatus);
+    };
     catElement.addEventListener('click', function(event) {
       event.stopPropagation();
-      speakCat(catSpeechStatus);
+      interactWithCat();
     });
     catElement.addEventListener('keydown', function(event) {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
         event.stopPropagation();
-        speakCat(catSpeechStatus);
+        interactWithCat();
       }
     });
     stopTouchAndScrollEventPropagation(catElement);

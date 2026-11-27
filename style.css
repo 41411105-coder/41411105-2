@@ -72,6 +72,43 @@ a, a:hover, a:active, a:visited {
   background: transparent;
   pointer-events: none;
   --poster-color: transparent;
+  transform-origin: center 85%;
+  animation: cat-idle 2.8s ease-in-out infinite;
+}
+
+.cat-hotspot.speaking model-viewer {
+  animation: cat-meow 0.8s ease-in-out;
+}
+
+@keyframes cat-idle {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-4px) rotate(-1deg);
+  }
+}
+
+@keyframes cat-meow {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+  25% {
+    transform: translateY(-8px) rotate(-7deg);
+  }
+  55% {
+    transform: translateY(1px) rotate(5deg);
+  }
+  80% {
+    transform: translateY(-3px) rotate(-2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat-hotspot model-viewer,
+  .cat-hotspot.speaking model-viewer {
+    animation: none;
+  }
 }
 
 .cat-speech-status {
